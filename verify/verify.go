@@ -16,7 +16,7 @@ func Resolve(sourceDir string) []string {
 	_, err := os.Stat(sourceDir)
 
 	if os.IsNotExist(err) {
-		fmt.Printf("Provided source directory '%s' does not exist!", sourceDir)
+		fmt.Println(fmt.Errorf("Provided source directory '%s' does not exist!", sourceDir))
 		os.Exit(1)
 	}
 
