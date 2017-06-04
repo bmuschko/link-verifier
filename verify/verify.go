@@ -13,6 +13,13 @@ import (
 // Resolve resolves AsciiDoc files for a given directory.
 // Returns resolved AsciiDoc files.
 func Resolve(sourceDir string) []string {
+	_, err := os.Stat(sourceDir)
+
+	if err == nil {
+		fmt.Errorf("Provided source directory '%s' does not exist!", sourceDir)
+		os.Exit(1)
+	}
+
 	fmt.Println("Searching AsciiDoc files in directory:", sourceDir)
 	return file.FindAsciiDocFiles(sourceDir)
 }
