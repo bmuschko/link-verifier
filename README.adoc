@@ -1,0 +1,33 @@
+= AsciiDoc Link Verifier image:https://travis-ci.org/bmuschko/asciidoc-link-verifier.svg?branch=master["Build Status", link="https://travis-ci.org/bmuschko/asciidoc-link-verifier"] image:https://goreportcard.com/badge/github.com/bmuschko/asciidoc-link-verifier["Go Report Card", link="https://goreportcard.com/report/github.com/bmuschko/asciidoc-link-verifier"]
+
+A tool for verifying links in AsciiDoc files written in Go.
+
+== Motivation
+
+Ambitious tech writers use AsciiDoc for turning text into properly formatted blog posts, web pages and documentation.
+Incorporating URLs to refer to external resources is part of the process. Before publishing content it's important if
+the linked URLs are valid and can be resolved. Nothing feels more unprofessional than broken links in a carefully crafted
+document.
+
+AsciiDoc link verifier to the rescue! Automatically discover all AsciiDoc files in a given directory and verify all links
+found in the documents before publishing them.
+
+== Command line options
+
+- `sourceDir`: The source directory used to search for AsciiDoc files. Defaults to the directory `content`.
+- `fail`: Fails the program if at least one discovered link cannot be resolved. Default to `true`.
+
+== Contribute!
+
+It's easy to contribute to this project. Install link:https://golang.org/doc/install[Go] and the package manager link:https://glide.sh/[Glide]. Then run the following commands to
+get the source code, resolve external dependencies and build the project.
+
+``` shell
+git clone https://github.com/bmuschko/asciidoc-link-verifier.git
+cd asciidoc-link-verifier
+glide install
+go build
+```
+
+
+
