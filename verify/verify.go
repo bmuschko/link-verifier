@@ -10,14 +10,14 @@ import (
     "os"
 )
 
-// Resolves AsciiDoc files for a given directory.
+// Resolve resolves AsciiDoc files for a given directory.
 // Returns resolved AsciiDoc files.
 func Resolve(sourceDir string) []string {
     fmt.Println("Searching AsciiDoc files in directory:", sourceDir)
     return file.FindAsciiDocFiles(sourceDir)
 }
 
-// Processes AsciiDoc files by verifying each parsed links by emitting a HTTP call.
+// Process processes AsciiDoc files by verifying each parsed links by emitting a HTTP call.
 // Prints out a summary of successful and failed links.
 // By default fails the program if at least one link could not be resolved.
 func Process(asciiDocFiles []string, fail bool) {

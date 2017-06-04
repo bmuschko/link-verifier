@@ -10,7 +10,7 @@ const adocFilePattern string = "*.adoc"
 const asciidocFilePattern string = "*.asciidoc"
 const ascFilePattern string = "*.asc"
 
-// Recursively finds all AsciiDoc files in the given directory and any of its subdirectories.
+// FindAsciiDocFiles recursively finds all AsciiDoc files in the given directory and any of its subdirectories.
 // Supported are the AsciiDoc file extensions .adoc, .asciidoc and .asc.
 // Returns a slice of found AsciiDoc files.
 func FindAsciiDocFiles(sourceDir string) []string {
@@ -46,7 +46,7 @@ func appendMatches(extension string, filename string, path string, matches []str
     return matches, err
 }
 
-// Reads the contents of a given file.
+// ReadFile reads the contents of a given file.
 func ReadFile(path string) string {
     read, err := ioutil.ReadFile(path)
 

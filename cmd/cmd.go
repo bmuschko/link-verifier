@@ -4,7 +4,7 @@ import (
     "flag"
 )
 
-// Parses the command line options.
+// ParseOptions parses the command line options.
 // Returns the parsed options.
 func ParseOptions() Options {
     var sourceDir = flag.String("sourceDir", "source", "The source directory to search for AsciiDoc files")
@@ -13,7 +13,7 @@ func ParseOptions() Options {
     return Options{SourceDir: *sourceDir, Fail: *fail}
 }
 
-// Command line options exposed by this program.
+// Options represent command line options exposed by this program.
 type Options struct {
     SourceDir string
     Fail bool

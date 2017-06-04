@@ -5,7 +5,7 @@ import (
     "regexp"
 )
 
-// Parses a given text and extracts all links. None of the links is further modified except for the rules listed below.
+// ParseLinks parses a given text and extracts all links. None of the links is further modified except for the rules listed below.
 // Sanitizes founds like based on the following logic:
 //   - Removes link description e.g. [...] if extraction logic couldn't remove it.
 //   - Remove fragments in URLs e.g. #sec:news - they are a browser-only concept.
