@@ -1,5 +1,7 @@
 package stat
 
+// Sums up all successful verifications.
+// Returns the overall number of successful verifications.
 func SumSuccesses(aggregateSummary []Summary) int {
     successes := collect(aggregateSummary, func(summary Summary) int {
         return summary.Successful
@@ -8,6 +10,8 @@ func SumSuccesses(aggregateSummary []Summary) int {
     return sum(successes)
 }
 
+// Sums up all failed verifications.
+// Returns the overall number of failed verifications.
 func SumFailures(aggregateSummary []Summary) int {
     failures := collect(aggregateSummary, func(summary Summary) int {
         return summary.Failed
@@ -38,6 +42,7 @@ func sum(input []int) int {
 
 type convert func(Summary) int
 
+// The summary of a verification.
 type Summary struct {
     Successful int
     Failed int

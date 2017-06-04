@@ -10,6 +10,8 @@ var client = &http.Client {
     Timeout: time.Second * 5,
 }
 
+// Emits a HTTP GET request for a given URL. Captures the status code, status and outcome of the call.
+// Returns with information about the response.
 func Get(link string) HttpResponse {
     result := HttpResponse{Url: link, Success: true}
     url, err := url.ParseRequestURI(link)
@@ -34,6 +36,7 @@ func Get(link string) HttpResponse {
     return result
 }
 
+// The HTTP response information.
 type HttpResponse struct {
     Url string
     Success bool
