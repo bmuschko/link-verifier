@@ -26,7 +26,7 @@ Run the program with `asciidoc-link-verifier` from anywhere in the file system.
 
 === Prebuilt libraries
 
-**Prebuilt libraries to follow...**
+Prebuilt libraries to follow...
 
 == Command line options
 
