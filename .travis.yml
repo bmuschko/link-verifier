@@ -11,4 +11,8 @@ install:
   - cd $GOPATH/src/github.com/Masterminds/glide && git checkout 84607742b10f492430762d038e954236bbaf23f7 && go install && cd -
   - glide install
 
-script: go test $(go list ./... | grep -v /vendor/) -v
+script:
+  - ./test.sh
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
