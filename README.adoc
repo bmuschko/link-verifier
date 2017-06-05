@@ -1,4 +1,4 @@
-= AsciiDoc Link Verifier image:https://travis-ci.org/bmuschko/asciidoc-link-verifier.svg?branch=master["Build Status", link="https://travis-ci.org/bmuschko/asciidoc-link-verifier"] image:https://goreportcard.com/badge/github.com/bmuschko/asciidoc-link-verifier["Go Report Card", link="https://goreportcard.com/report/github.com/bmuschko/asciidoc-link-verifier"]
+= AsciiDoc Link Verifier image:https://travis-ci.org/bmuschko/asciidoc-link-verifier.svg?branch=master["Build Status", link="https://travis-ci.org/bmuschko/asciidoc-link-verifier"] image:https://goreportcard.com/badge/github.com/bmuschko/asciidoc-link-verifier["Go Report Card", link="https://goreportcard.com/report/github.com/bmuschko/asciidoc-link-verifier"] image:https://codecov.io/gh/bmuschko/asciidoc-link-verifier/branch/master/graph/badge.svg["Codecov", link="https://codecov.io/gh/bmuschko/asciidoc-link-verifier"]
 
 A tool for verifying links in AsciiDoc files written in Go.
 
