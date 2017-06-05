@@ -6,6 +6,9 @@ go:
   - 1.8
   - master
 
+before_install:
+  - chmod +x test.sh
+
 install:
   - go get -v github.com/Masterminds/glide
   - cd $GOPATH/src/github.com/Masterminds/glide && git checkout 84607742b10f492430762d038e954236bbaf23f7 && go install && cd -
