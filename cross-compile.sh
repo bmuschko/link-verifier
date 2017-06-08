@@ -13,8 +13,12 @@ BUILD_WIN_BIN_FILE="$BUILD_TMP_DIR/$NAME.exe"
 rm -rf ${BUILD_DIR}
 mkdir -p ${BUILD_TMP_DIR}
 mkdir -p ${BUILD_BIN_DIR}
-cp LICENSE.txt ${BUILD_TMP_DIR}
+cp LICENSE ${BUILD_TMP_DIR}
 cp README.adoc ${BUILD_TMP_DIR}
+
+echo "Merging third-party license files..."
+sh third-party-licenses.sh
+cp "$BUILD_DIR/tmp/THIRD-PARTY-LICENSES" ${BUILD_TMP_DIR}
 
 echo "Generating binaries..."
 
