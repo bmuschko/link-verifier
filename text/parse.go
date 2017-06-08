@@ -1,3 +1,6 @@
+// This package uses the library "github.com/mvdan/xurls" to parse URLs from a string.
+// The library is distributed with the license BSD 3-clause.
+// Copyright (c) 2015, Daniel Martí. All rights reserved.
 package text
 
 import (
