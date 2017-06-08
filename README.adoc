@@ -14,6 +14,11 @@ found in the documents before publishing them.
 
 == Installation
 
+=== Prebuilt libraries
+
+link:https://github.com/bmuschko/asciidoc-link-verifier/releases[Prebuilt libraries for various platforms] are available on GitHub.
+Just download, exact the archive and execute the binary.
+
 === Building from source
 
 Building from source requires that you have link:https://golang.org/doc/install[Go] installed on your machine.
@@ -23,10 +28,6 @@ go get -u -v github.com/bmuschko/asciidoc-link-verifier
 ```
 
 Run the program with `asciidoc-link-verifier` from anywhere in the file system.
-
-=== Prebuilt libraries
-
-Prebuilt libraries to follow...
 
 == Command line options
 
