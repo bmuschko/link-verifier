@@ -34,6 +34,24 @@ Run the program with `asciidoc-link-verifier` from anywhere in the file system.
 - `sourceDir`: The source directory used to search for AsciiDoc files. Defaults to the directory `content`.
 - `fail`: Fails the program if at least one discovered link cannot be resolved. Default to `true`.
 
+== Usage on CI
+
+Integrating the tool with a build on CI is a breeze and can used as validation step before publishing AsciiDoc files.
+
+== Travis CI
+
+The following `.travis.yml` demonstrate the use of the prebuilt binary version on Linux 64 bit:
+
+``` shell
+before_script:
+  - wget https://github.com/bmuschko/asciidoc-link-verifier/releases/download/v0.1/asciidoc-link-verifier-0.1-linux64.tar.gz -O /tmp/asciidoc-link-verifier.tar.gz
+  - tar -xvf /tmp/asciidoc-link-verifier.tar.gz
+  - export PATH=$PATH:$PWD/asciidoc-link-verifier/
+
+script:
+  - ./asciidoc-link-verifier
+```
+
 == Contribute!
 
 It's easy to contribute to this project. Install link:https://golang.org/doc/install[Go] and the package manager link:https://glide.sh/[Glide]. Then run the following commands to
