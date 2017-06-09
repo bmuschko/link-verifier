@@ -38,7 +38,7 @@ Run the program with `asciidoc-link-verifier` from anywhere in the file system.
 
 Integrating the tool with a build on CI is a breeze and can used as validation step before publishing AsciiDoc files.
 
-== Travis CI
+=== Travis CI
 
 The following `.travis.yml` demonstrate the use of the prebuilt binary version on Linux 64 bit:
 
