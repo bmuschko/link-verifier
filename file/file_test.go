@@ -5,30 +5,31 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
+	"fmt"
 )
 
 func TestFindAsciiDocFilesInRootDir(t *testing.T) {
 	tempDirPath := filepath.Join(os.TempDir(), "a")
 	createDir(tempDirPath)
-	adocPath1 := filepath.Join(tempDirPath, "1.adoc")
-	adocPath2 := filepath.Join(tempDirPath, "abc.adoc")
-	txtPath := filepath.Join(tempDirPath, "my.jpg")
+	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1%s", AdocFilePattern))
+	path2 := filepath.Join(tempDirPath, fmt.Sprintf("abc%s", AdocFilePattern))
+	jpgPath := filepath.Join(tempDirPath, "my.jpg")
 	binPath := filepath.Join(tempDirPath, "other.bin")
 	docPath := filepath.Join(tempDirPath, "some.doc")
-	createFile(adocPath1)
-	createFile(adocPath2)
-	createFile(txtPath)
+	createFile(path1)
+	createFile(path2)
+	createFile(jpgPath)
 	createFile(binPath)
 	createFile(docPath)
 
-	adocFiles := FindTextBasedFiles(tempDirPath)
-	assert.Equal(t, 2, len(adocFiles))
-	assert.Equal(t, adocPath1, adocFiles[0])
-	assert.Equal(t, adocPath2, adocFiles[1])
+	files := FindTextBasedFiles(tempDirPath)
+	assert.Equal(t, 2, len(files))
+	assert.Equal(t, path1, files[0])
+	assert.Equal(t, path2, files[1])
 
-	deleteFile(adocPath1)
-	deleteFile(adocPath2)
-	deleteFile(txtPath)
+	deleteFile(path1)
+	deleteFile(path2)
+	deleteFile(jpgPath)
 	deleteFile(binPath)
 	deleteFile(docPath)
 }
@@ -40,53 +41,74 @@ func TestFindAsciiDocFilesInSubDirs(t *testing.T) {
 	createDir(subDirPath)
 	subSubDirPath := filepath.Join(subDirPath, "subsub")
 	createDir(subSubDirPath)
-	adocPath1 := filepath.Join(subDirPath, "1.adoc")
-	adocPath2 := filepath.Join(subSubDirPath, "2.adoc")
-	createFile(adocPath1)
-	createFile(adocPath2)
+	path1 := filepath.Join(subDirPath, fmt.Sprintf("1%s", AdocFilePattern))
+	path2 := filepath.Join(subSubDirPath, fmt.Sprintf("2%s", AdocFilePattern))
+	createFile(path1)
+	createFile(path2)
 
-	adocFiles := FindTextBasedFiles(tempDirPath)
-	assert.Equal(t, 2, len(adocFiles))
-	assert.Equal(t, adocPath1, adocFiles[0])
-	assert.Equal(t, adocPath2, adocFiles[1])
+	files := FindTextBasedFiles(tempDirPath)
+	assert.Equal(t, 2, len(files))
+	assert.Equal(t, path1, files[0])
+	assert.Equal(t, path2, files[1])
 
-	deleteFile(adocPath1)
-	deleteFile(adocPath2)
+	deleteFile(path1)
+	deleteFile(path2)
 }
 
 func TestFindAsciiDocFilesDifferentExtensions(t *testing.T) {
 	tempDirPath := filepath.Join(os.TempDir(), "c")
 	createDir(tempDirPath)
-	adocPath1 := filepath.Join(tempDirPath, "1.adoc")
-	adocPath2 := filepath.Join(tempDirPath, "2.asciidoc")
-	adocPath3 := filepath.Join(tempDirPath, "3.asc")
-	createFile(adocPath1)
-	createFile(adocPath2)
-	createFile(adocPath3)
+	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1%s", AdocFilePattern))
+	path2 := filepath.Join(tempDirPath, fmt.Sprintf("2%s", AsciidocFilePattern))
+	path3 := filepath.Join(tempDirPath, fmt.Sprintf("3%s", AscFilePattern))
+	createFile(path1)
+	createFile(path2)
+	createFile(path3)
 
-	adocFiles := FindTextBasedFiles(tempDirPath)
-	assert.Equal(t, 3, len(adocFiles))
-	assert.Equal(t, adocPath1, adocFiles[0])
-	assert.Equal(t, adocPath2, adocFiles[1])
-	assert.Equal(t, adocPath3, adocFiles[2])
+	files := FindTextBasedFiles(tempDirPath)
+	assert.Equal(t, 3, len(files))
+	assert.Equal(t, path1, files[0])
+	assert.Equal(t, path2, files[1])
+	assert.Equal(t, path3, files[2])
 
-	deleteFile(adocPath1)
-	deleteFile(adocPath2)
-	deleteFile(adocPath3)
+	deleteFile(path1)
+	deleteFile(path2)
+	deleteFile(path3)
+}
+
+func TestFindMarkdownFilesDifferentExtensions(t *testing.T) {
+	tempDirPath := filepath.Join(os.TempDir(), "c")
+	createDir(tempDirPath)
+	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1%s", MdFilePattern))
+	path2 := filepath.Join(tempDirPath, fmt.Sprintf("2%s", MarkdownFilePattern))
+	path3 := filepath.Join(tempDirPath, fmt.Sprintf("3%s", MdownFilePattern))
+	createFile(path1)
+	createFile(path2)
+	createFile(path3)
+
+	files := FindTextBasedFiles(tempDirPath)
+	assert.Equal(t, 3, len(files))
+	assert.Equal(t, path1, files[0])
+	assert.Equal(t, path2, files[1])
+	assert.Equal(t, path3, files[2])
+
+	deleteFile(path1)
+	deleteFile(path2)
+	deleteFile(path3)
 }
 
 func TestReadFile(t *testing.T) {
 	expectedContent := "some text"
 	tempDirPath := filepath.Join(os.TempDir(), "content")
 	createDir(tempDirPath)
-	adocPath1 := filepath.Join(tempDirPath, "1.adoc")
-	createFile(adocPath1)
-	writeFile(adocPath1, expectedContent)
+	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1%s", AdocFilePattern))
+	createFile(path1)
+	writeFile(path1, expectedContent)
 
-	content := ReadFile(adocPath1)
+	content := ReadFile(path1)
 	assert.Equal(t, expectedContent, content)
 
-	deleteFile(adocPath1)
+	deleteFile(path1)
 }
 
 func createDir(path string) {

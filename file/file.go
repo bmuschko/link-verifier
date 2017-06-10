@@ -6,13 +6,13 @@ import (
 	"path/filepath"
 )
 
-const adocFilePattern string = "*.adoc"
-const asciidocFilePattern string = "*.asciidoc"
-const ascFilePattern string = "*.asc"
-const mdFilePattern string = "*.md"
-const markdownFilePattern string = "*.markdown"
-const mdownFilePattern string = "*.mdown"
-const txtFilePattern string = "*.txt"
+const AdocFilePattern string = "*.adoc"
+const AsciidocFilePattern string = "*.asciidoc"
+const AscFilePattern string = "*.asc"
+const MdFilePattern string = "*.md"
+const MarkdownFilePattern string = "*.markdown"
+const MdownFilePattern string = "*.mdown"
+const TxtFilePattern string = "*.txt"
 
 // FindTextBasedFiles recursively finds all text-based files in the given directory and any of its subdirectories.
 // Supported are the file extensions:
@@ -29,13 +29,13 @@ func FindTextBasedFiles(sourceDir string) []string {
 		}
 
 		fn := fileInfo.Name()
-		matches, err = appendMatches(adocFilePattern, fn, path, matches)
-		matches, err = appendMatches(asciidocFilePattern, fn, path, matches)
-		matches, err = appendMatches(ascFilePattern, fn, path, matches)
-		matches, err = appendMatches(mdFilePattern, fn, path, matches)
-		matches, err = appendMatches(markdownFilePattern, fn, path, matches)
-		matches, err = appendMatches(mdownFilePattern, fn, path, matches)
-		matches, err = appendMatches(txtFilePattern, fn, path, matches)
+		matches, err = appendMatches(AdocFilePattern, fn, path, matches)
+		matches, err = appendMatches(AsciidocFilePattern, fn, path, matches)
+		matches, err = appendMatches(AscFilePattern, fn, path, matches)
+		matches, err = appendMatches(MdFilePattern, fn, path, matches)
+		matches, err = appendMatches(MarkdownFilePattern, fn, path, matches)
+		matches, err = appendMatches(MdownFilePattern, fn, path, matches)
+		matches, err = appendMatches(TxtFilePattern, fn, path, matches)
 
 		return err
 	})
