@@ -1,6 +1,6 @@
 = Link Verifier image:https://travis-ci.org/bmuschko/link-verifier.svg?branch=master["Build Status", link="https://travis-ci.org/bmuschko/link-verifier"] image:https://goreportcard.com/badge/github.com/bmuschko/link-verifier["Go Report Card", link="https://goreportcard.com/report/github.com/bmuschko/link-verifier"] image:https://codecov.io/gh/bmuschko/link-verifier/branch/master/graph/badge.svg["Codecov", link="https://codecov.io/gh/bmuschko/link-verifier"]
 
-A tool for verifying links in text-based files. Written in Go, runnable as executable.
+A tool for verifying links in text-based files. Written in Go, available as executable.
 
 == Motivation
 
