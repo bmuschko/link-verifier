@@ -2,10 +2,10 @@ package verify
 
 import (
 	"fmt"
-	"github.com/bmuschko/asciidoc-link-verifier/file"
-	"github.com/bmuschko/asciidoc-link-verifier/http"
-	"github.com/bmuschko/asciidoc-link-verifier/stat"
-	"github.com/bmuschko/asciidoc-link-verifier/text"
+	"github.com/bmuschko/link-verifier/file"
+	"github.com/bmuschko/link-verifier/http"
+	"github.com/bmuschko/link-verifier/stat"
+	"github.com/bmuschko/link-verifier/text"
 	"os"
 	"strconv"
 )

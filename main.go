@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/bmuschko/asciidoc-link-verifier/cmd"
-	"github.com/bmuschko/asciidoc-link-verifier/verify"
+	"github.com/bmuschko/link-verifier/cmd"
+	"github.com/bmuschko/link-verifier/verify"
 )
 
 func main() {

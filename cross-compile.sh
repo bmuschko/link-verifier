@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 HASH="$(git rev-parse --short HEAD)"
-NAME="asciidoc-link-verifier"
+NAME="link-verifier"
 VERSION="0.1"
 DATE=$(date +%d-%m-%Y" "%H:%M:%S)
 BUILD_DIR="build"
