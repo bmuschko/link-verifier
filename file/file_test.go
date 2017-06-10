@@ -12,7 +12,7 @@ func TestFindAsciiDocFilesInRootDir(t *testing.T) {
 	createDir(tempDirPath)
 	adocPath1 := filepath.Join(tempDirPath, "1.adoc")
 	adocPath2 := filepath.Join(tempDirPath, "abc.adoc")
-	txtPath := filepath.Join(tempDirPath, "my.txt")
+	txtPath := filepath.Join(tempDirPath, "my.jpg")
 	binPath := filepath.Join(tempDirPath, "other.bin")
 	docPath := filepath.Join(tempDirPath, "some.doc")
 	createFile(adocPath1)
