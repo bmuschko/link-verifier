@@ -10,8 +10,8 @@ import (
 	"strconv"
 )
 
-// Resolve resolves AsciiDoc files for a given directory.
-// Returns resolved AsciiDoc files.
+// Resolve resolves text-based files for a given directory.
+// Returns resolved text-based files.
 func Resolve(sourceDir string) []string {
 	_, err := os.Stat(sourceDir)
 
@@ -20,20 +20,20 @@ func Resolve(sourceDir string) []string {
 		os.Exit(1)
 	}
 
-	fmt.Println("Searching AsciiDoc files in directory:", sourceDir)
-	return file.FindAsciiDocFiles(sourceDir)
+	fmt.Println("Searching text-based files in directory:", sourceDir)
+	return file.FindTextBasedFiles(sourceDir)
 }
 
-// Process processes AsciiDoc files by verifying each parsed links by emitting a HTTP call.
+// Process processes text-based files by verifying each parsed links by emitting a HTTP call.
 // Prints out a summary of successful and failed links.
 // By default fails the program if at least one link could not be resolved.
-func Process(asciiDocFiles []string, fail bool) {
+func Process(files []string, fail bool) {
 	aggregateSummary := []stat.Summary{}
 
-	for _, asciiDocFile := range asciiDocFiles {
+	for _, textBasedFile := range files {
 		fmt.Println()
-		fmt.Println("-> Verifying file:", asciiDocFile)
-		content := file.ReadFile(asciiDocFile)
+		fmt.Println("-> Verifying file:", textBasedFile)
+		content := file.ReadFile(textBasedFile)
 		summary := parseLinks(content)
 		aggregateSummary = append(aggregateSummary, summary)
 	}

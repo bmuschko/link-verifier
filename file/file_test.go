@@ -21,7 +21,7 @@ func TestFindAsciiDocFilesInRootDir(t *testing.T) {
 	createFile(binPath)
 	createFile(docPath)
 
-	adocFiles := FindAsciiDocFiles(tempDirPath)
+	adocFiles := FindTextBasedFiles(tempDirPath)
 	assert.Equal(t, 2, len(adocFiles))
 	assert.Equal(t, adocPath1, adocFiles[0])
 	assert.Equal(t, adocPath2, adocFiles[1])
@@ -45,7 +45,7 @@ func TestFindAsciiDocFilesInSubDirs(t *testing.T) {
 	createFile(adocPath1)
 	createFile(adocPath2)
 
-	adocFiles := FindAsciiDocFiles(tempDirPath)
+	adocFiles := FindTextBasedFiles(tempDirPath)
 	assert.Equal(t, 2, len(adocFiles))
 	assert.Equal(t, adocPath1, adocFiles[0])
 	assert.Equal(t, adocPath2, adocFiles[1])
@@ -64,7 +64,7 @@ func TestFindAsciiDocFilesDifferentExtensions(t *testing.T) {
 	createFile(adocPath2)
 	createFile(adocPath3)
 
-	adocFiles := FindAsciiDocFiles(tempDirPath)
+	adocFiles := FindTextBasedFiles(tempDirPath)
 	assert.Equal(t, 3, len(adocFiles))
 	assert.Equal(t, adocPath1, adocFiles[0])
 	assert.Equal(t, adocPath2, adocFiles[1])
