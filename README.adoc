@@ -32,9 +32,12 @@ Run the program with `link-verifier` from anywhere in the file system.
 
 == Command line options
 
-- `rootDirs`: The comma-separated root directories used to recursively search for files. Defaults to the single directory `content`.
-- `includePatterns`: The comma-separated include patterns used to search for files. Defaults to common AsciiDoc, Markdown and plain-test file extensions. The value of the include patterns are always additive to the default file patterns.
-- `fail`: Fails the program if at least one discovered link cannot be resolved. Default to `true`.
+|=========================================================
+|Option |Description |Default Value
+|`rootDirs` |The comma-separated root directories used to recursively search for files. | Single directory `content`.
+|`includePatterns` |The comma-separated include patterns used to search for files. The value of the include patterns are always additive to the default file patterns. |Common AsciiDoc, Markdown and plain-test file extensions.
+|`fail` |Fails the program if at least one discovered link cannot be resolved. |`true`
+|=========================================================
 
 **Example**:
 
