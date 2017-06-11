@@ -8,20 +8,28 @@ import (
 	"github.com/bmuschko/link-verifier/text"
 	"os"
 	"strconv"
+	"strings"
 )
 
-// Resolve resolves text-based files for a given directory.
+// Resolve resolves text-based files for a given directories.
 // Returns resolved text-based files.
-func Resolve(sourceDir string) []string {
-	_, err := os.Stat(sourceDir)
+func Resolve(rootDirs []string, includePatterns []string) []string {
+	textBasedFiles := []string{}
 
-	if os.IsNotExist(err) {
-		fmt.Println(fmt.Errorf("Provided source directory '%s' does not exist!", sourceDir))
-		os.Exit(1)
+	for _, rootDir := range rootDirs {
+		_, err := os.Stat(rootDir)
+
+		if os.IsNotExist(err) {
+			fmt.Println(fmt.Errorf("Provided root directory '%s' does not exist!", rootDir))
+			os.Exit(1)
+		}
+
+		foundFiles := file.FindTextBasedFiles(rootDir, includePatterns)
+		textBasedFiles = append(textBasedFiles, foundFiles...)
 	}
 
-	fmt.Println("Searching text-based files in directory:", sourceDir)
-	return file.FindTextBasedFiles(sourceDir)
+	fmt.Println("Searching text-based files in directories:", strings.Join(rootDirs, ", "))
+	return textBasedFiles
 }
 
 // Process processes text-based files by verifying each parsed links by emitting a HTTP call.

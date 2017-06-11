@@ -11,8 +11,8 @@ import (
 func TestFindAsciiDocFilesInRootDir(t *testing.T) {
 	tempDirPath := filepath.Join(os.TempDir(), "a")
 	createDir(tempDirPath)
-	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1%s", AdocFilePattern))
-	path2 := filepath.Join(tempDirPath, fmt.Sprintf("abc%s", AdocFilePattern))
+	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1.adoc"))
+	path2 := filepath.Join(tempDirPath, fmt.Sprintf("abc.adoc"))
 	jpgPath := filepath.Join(tempDirPath, "my.jpg")
 	binPath := filepath.Join(tempDirPath, "other.bin")
 	docPath := filepath.Join(tempDirPath, "some.doc")
@@ -22,7 +22,7 @@ func TestFindAsciiDocFilesInRootDir(t *testing.T) {
 	createFile(binPath)
 	createFile(docPath)
 
-	files := FindTextBasedFiles(tempDirPath)
+	files := FindTextBasedFiles(tempDirPath, []string{})
 	assert.Equal(t, 2, len(files))
 	assert.Equal(t, path1, files[0])
 	assert.Equal(t, path2, files[1])
@@ -41,12 +41,12 @@ func TestFindAsciiDocFilesInSubDirs(t *testing.T) {
 	createDir(subDirPath)
 	subSubDirPath := filepath.Join(subDirPath, "subsub")
 	createDir(subSubDirPath)
-	path1 := filepath.Join(subDirPath, fmt.Sprintf("1%s", AdocFilePattern))
-	path2 := filepath.Join(subSubDirPath, fmt.Sprintf("2%s", AdocFilePattern))
+	path1 := filepath.Join(subDirPath, fmt.Sprintf("1.adoc"))
+	path2 := filepath.Join(subSubDirPath, fmt.Sprintf("2.adoc"))
 	createFile(path1)
 	createFile(path2)
 
-	files := FindTextBasedFiles(tempDirPath)
+	files := FindTextBasedFiles(tempDirPath, []string{})
 	assert.Equal(t, 2, len(files))
 	assert.Equal(t, path1, files[0])
 	assert.Equal(t, path2, files[1])
@@ -58,14 +58,14 @@ func TestFindAsciiDocFilesInSubDirs(t *testing.T) {
 func TestFindAsciiDocFilesDifferentExtensions(t *testing.T) {
 	tempDirPath := filepath.Join(os.TempDir(), "c")
 	createDir(tempDirPath)
-	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1%s", AdocFilePattern))
-	path2 := filepath.Join(tempDirPath, fmt.Sprintf("2%s", AsciidocFilePattern))
-	path3 := filepath.Join(tempDirPath, fmt.Sprintf("3%s", AscFilePattern))
+	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1.adoc"))
+	path2 := filepath.Join(tempDirPath, fmt.Sprintf("2.asciidoc"))
+	path3 := filepath.Join(tempDirPath, fmt.Sprintf("3.asc"))
 	createFile(path1)
 	createFile(path2)
 	createFile(path3)
 
-	files := FindTextBasedFiles(tempDirPath)
+	files := FindTextBasedFiles(tempDirPath, []string{})
 	assert.Equal(t, 3, len(files))
 	assert.Equal(t, path1, files[0])
 	assert.Equal(t, path2, files[1])
@@ -77,16 +77,16 @@ func TestFindAsciiDocFilesDifferentExtensions(t *testing.T) {
 }
 
 func TestFindMarkdownFilesDifferentExtensions(t *testing.T) {
-	tempDirPath := filepath.Join(os.TempDir(), "c")
+	tempDirPath := filepath.Join(os.TempDir(), "d")
 	createDir(tempDirPath)
-	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1%s", MdFilePattern))
-	path2 := filepath.Join(tempDirPath, fmt.Sprintf("2%s", MarkdownFilePattern))
-	path3 := filepath.Join(tempDirPath, fmt.Sprintf("3%s", MdownFilePattern))
+	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1.md"))
+	path2 := filepath.Join(tempDirPath, fmt.Sprintf("2.markdown"))
+	path3 := filepath.Join(tempDirPath, fmt.Sprintf("3.mdown"))
 	createFile(path1)
 	createFile(path2)
 	createFile(path3)
 
-	files := FindTextBasedFiles(tempDirPath)
+	files := FindTextBasedFiles(tempDirPath, []string{})
 	assert.Equal(t, 3, len(files))
 	assert.Equal(t, path1, files[0])
 	assert.Equal(t, path2, files[1])
@@ -97,11 +97,28 @@ func TestFindMarkdownFilesDifferentExtensions(t *testing.T) {
 	deleteFile(path3)
 }
 
+func TestFilesForCustomIncludePatterns(t *testing.T) {
+	tempDirPath := filepath.Join(os.TempDir(), "e")
+	createDir(tempDirPath)
+	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1.html"))
+	path2 := filepath.Join(tempDirPath, fmt.Sprintf("2.yml"))
+	createFile(path1)
+	createFile(path2)
+
+	files := FindTextBasedFiles(tempDirPath, []string{"*.html", "*.yml"})
+	assert.Equal(t, 2, len(files))
+	assert.Equal(t, path1, files[0])
+	assert.Equal(t, path2, files[1])
+
+	deleteFile(path1)
+	deleteFile(path2)
+}
+
 func TestReadFile(t *testing.T) {
 	expectedContent := "some text"
 	tempDirPath := filepath.Join(os.TempDir(), "content")
 	createDir(tempDirPath)
-	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1%s", AdocFilePattern))
+	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1.adoc"))
 	createFile(path1)
 	writeFile(path1, expectedContent)
 

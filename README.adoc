@@ -32,8 +32,15 @@ Run the program with `link-verifier` from anywhere in the file system.
 
 == Command line options
 
-- `sourceDir`: The source directory used to search for mark-up files. Defaults to the directory `content`.
+- `rootDirs`: The comma-separated root directories used to recursively search for files. Defaults to the single directory `content`.
+- `includePatterns`: The comma-separated include patterns used to search for files. Defaults to common AsciiDoc, Markdown and plain-test file extensions. The value of the include patterns are always additive to the default file patters.
 - `fail`: Fails the program if at least one discovered link cannot be resolved. Default to `true`.
+
+**Example**:
+
+``` shell
+link-verifier -rootDirs data,content -includePatterns *.html,*.yml -fail true
+```
 
 == Usage on CI
 

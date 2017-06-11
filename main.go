@@ -7,6 +7,6 @@ import (
 
 func main() {
 	var cmdOptions = cmd.ParseOptions()
-	files := verify.Resolve(cmdOptions.SourceDir)
+	files := verify.Resolve(cmdOptions.RootDirs, cmdOptions.IncludePatterns)
 	verify.Process(files, cmdOptions.Fail)
 }

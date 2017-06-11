@@ -6,21 +6,13 @@ import (
 	"path/filepath"
 )
 
-const AdocFilePattern string = "*.adoc"
-const AsciidocFilePattern string = "*.asciidoc"
-const AscFilePattern string = "*.asc"
-const MdFilePattern string = "*.md"
-const MarkdownFilePattern string = "*.markdown"
-const MdownFilePattern string = "*.mdown"
-const TxtFilePattern string = "*.txt"
-
 // FindTextBasedFiles recursively finds all text-based files in the given directory and any of its subdirectories.
 // Supported are the file extensions:
 // - AsciiDoc: .adoc, .asciidoc and .asc
 // - Markdown: .md, .markdown and .mdown
 // - Plain text: .txt
 // Returns a slice of found text-based files.
-func FindTextBasedFiles(sourceDir string) []string {
+func FindTextBasedFiles(sourceDir string, includePatterns []string) []string {
 	matches := []string{}
 
 	err := filepath.Walk(sourceDir, func(path string, fileInfo os.FileInfo, err error) error {
@@ -29,13 +21,18 @@ func FindTextBasedFiles(sourceDir string) []string {
 		}
 
 		fn := fileInfo.Name()
-		matches, err = appendMatches(AdocFilePattern, fn, path, matches)
-		matches, err = appendMatches(AsciidocFilePattern, fn, path, matches)
-		matches, err = appendMatches(AscFilePattern, fn, path, matches)
-		matches, err = appendMatches(MdFilePattern, fn, path, matches)
-		matches, err = appendMatches(MarkdownFilePattern, fn, path, matches)
-		matches, err = appendMatches(MdownFilePattern, fn, path, matches)
-		matches, err = appendMatches(TxtFilePattern, fn, path, matches)
+		for _, ext := range AsciiDoc.ext {
+			matches, err = appendMatches(ext, fn, path, matches)
+		}
+		for _, ext := range Markdown.ext {
+			matches, err = appendMatches(ext, fn, path, matches)
+		}
+		for _, ext := range PlainText.ext {
+			matches, err = appendMatches(ext, fn, path, matches)
+		}
+		for _, include := range includePatterns {
+			matches, err = appendMatches(include, fn, path, matches)
+		}
 
 		return err
 	})
