@@ -39,7 +39,7 @@ Run the program with `link-verifier` from anywhere in the file system.
 **Example**:
 
 ``` shell
-link-verifier -rootDirs data,content -includePatterns *.html,*.yml -fail true
+link-verifier -rootDirs data,content -includePatterns *.html,*.yml -fail false
 ```
 
 == Usage on CI
