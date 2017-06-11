@@ -32,6 +32,7 @@ Run the program with `link-verifier` from anywhere in the file system.
 
 == Command line options
 
+[options="header"]
 |=========================================================
 |Option |Description |Default Value
 |`rootDirs` |The comma-separated root directories used to recursively search for files. | Single directory `content`.
