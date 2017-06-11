@@ -2,6 +2,8 @@
 
 A tool for verifying links in text-based files. Written in Go, available as executable.
 
+image:https://user-images.githubusercontent.com/440872/27007980-8293ab6a-4e33-11e7-8f6c-dfd9c789a08b.jpg["Logo"]
+
 == Motivation
 
 Ambitious tech writers use plain-text mark-up formats like link:http://asciidoc.org/[AsciiDoc] and
