@@ -44,7 +44,7 @@ link-verifier -rootDirs data,content -includePatterns *.html,*.yml -fail false
 
 == Usage on CI
 
-Integrating the tool with a build on CI is a breeze and can used as validation step before publishing AsciiDoc files.
+Integrating the tool with a build on CI is a breeze and can used as validation step before publishing mark-up files.
 
 === Travis CI
 
