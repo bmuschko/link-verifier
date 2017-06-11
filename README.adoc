@@ -2,7 +2,7 @@
 
 A tool for verifying links in text-based files. Written in Go, available as executable.
 
-image:https://user-images.githubusercontent.com/440872/27007980-8293ab6a-4e33-11e7-8f6c-dfd9c789a08b.jpg["Logo"]
+image:https://user-images.githubusercontent.com/440872/27007990-1184b292-4e34-11e7-8417-fc62542250b5.jpg["Logo"]
 
 == Motivation
 
