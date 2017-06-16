@@ -68,22 +68,28 @@ func parseLinks(content string) stat.Summary {
 		fmt.Println("No links found.")
 	}
 
+	ch := make(chan string)
+
 	for _, link := range links {
-		validateLink(link, &summary)
+		go validateLink(link, &summary, ch)
+	}
+
+	for range links {
+		fmt.Println(<-ch)
 	}
 
 	return summary
 }
 
-func validateLink(link string, summary *stat.Summary) {
+func validateLink(link string, summary *stat.Summary, ch chan<- string) {
 	response := http.Get(link)
 
 	if response.Success {
 		summary.Successful++
-		fmt.Println("[OK] " + link)
+		ch <- fmt.Sprintf("[OK] %s", link)
 	} else {
 		summary.Failed++
-		fmt.Println("[FAILED] " + link + " (" + response.Status + ")")
+		ch <- fmt.Sprintf("[FAILED] %s (%s)", link, response.Status)
 	}
 }
 
