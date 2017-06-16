@@ -33,6 +33,7 @@ func Get(link string) HttpResponse {
 		result.Success = false
 	}
 
+	resp.Body.Close()
 	return result
 }
 
