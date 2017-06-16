@@ -16,18 +16,28 @@ import (
 //   - URLs that contains String interpolation with ${...}.
 // Returns a slice of links.
 func ParseLinks(content string) []string {
+	uniqueLinks := make(map[string]bool)
 	links := xurls.Strict.FindAllString(content, -1)
 
-	for i, link := range links {
+	for _, link := range links {
 		sanatizedLink := sanitizeLink(link)
-		links[i] = sanatizedLink
 
-		if skipLink(links[i]) {
-			links[i] = links[len(links)-1]
+		if !uniqueLinks[sanatizedLink] && !skipLink(sanatizedLink) {
+			uniqueLinks[sanatizedLink] = true
 		}
 	}
 
-	return links
+	return keysInMap(uniqueLinks)
+}
+
+func keysInMap(data map[string]bool) []string {
+	keys := make([]string, 0, len(data))
+
+	for k := range data {
+		keys = append(keys, k)
+	}
+
+	return keys
 }
 
 func sanitizeLink(link string) string {
