@@ -1,0 +1,37 @@
+plugins {
+    id 'com.github.blindpirate.gogradle' version '0.6.5'
+}
+
+version = '0.1'
+
+golang {
+    packagePath = 'github.com/bmuschko/link-verifier'
+}
+
+dependencies {
+    golang {
+        build name:'github.com/mvdan/xurls', version:'d315b61cf6727664f310fa87b3197e9faf2a8513', transitive:true
+        test name:'github.com/stretchr/testify', version:'69483b4bd14f5845b5a1e55bca19e954e827f1d0', transitive:true
+    }
+}
+
+build {
+    targetPlatform = 'darwin-amd64, netbsd-amd64, netbsd-386, openbsd-amd64, openbsd-386, freebsd-amd64, freebsd-386, linux-amd64, linux-386, linux-arm, windows-amd64, windows-386'
+}
+
+task aggregateCoverage(type: AggregateCoverage)
+
+class AggregateCoverage extends DefaultTask {
+    @InputDirectory
+    File inputDir = project.file('.gogradle/reports/coverage/profiles')
+    
+    @OutputFile
+    File outputFile = project.file('.gogradle/reports/coverage-aggregate/profile.out')
+    
+    @TaskAction
+    void aggregate() {
+        inputDir.listFiles().each {
+            outputFile << it.text
+        }
+    }
+}
