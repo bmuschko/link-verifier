@@ -10,8 +10,8 @@ golang {
 
 dependencies {
     golang {
-        build name:'github.com/mvdan/xurls', version:'d315b61cf6727664f310fa87b3197e9faf2a8513', transitive:true
-        test name:'github.com/stretchr/testify', version:'69483b4bd14f5845b5a1e55bca19e954e827f1d0', transitive:true
+        build name:'github.com/mvdan/xurls', version:'d315b61cf6727664f310fa87b3197e9faf2a8513'
+        test name:'github.com/stretchr/testify', version:'69483b4bd14f5845b5a1e55bca19e954e827f1d0'
     }
 }
 
@@ -19,19 +19,12 @@ build {
     targetPlatform = 'darwin-amd64, netbsd-amd64, netbsd-386, openbsd-amd64, openbsd-386, freebsd-amd64, freebsd-386, linux-amd64, linux-386, linux-arm, windows-amd64, windows-386'
 }
 
-task aggregateCoverage(type: AggregateCoverage)
+task aggregateCoverage(type: AggregateCoverage) {
+    mustRunAfter test
+}
 
-class AggregateCoverage extends DefaultTask {
-    @InputDirectory
-    File inputDir = project.file('.gogradle/reports/coverage/profiles')
-    
-    @OutputFile
-    File outputFile = project.file('.gogradle/reports/coverage-aggregate/profile.out')
-    
-    @TaskAction
-    void aggregate() {
-        inputDir.listFiles().each {
-            outputFile << it.text
-        }
-    }
+build.dependsOn aggregateCoverage
+
+task dist(type: Distributions) {
+    mustRunAfter build
 }
