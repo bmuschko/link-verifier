@@ -19,6 +19,9 @@ build {
     targetPlatform = 'darwin-amd64, netbsd-amd64, netbsd-386, openbsd-amd64, openbsd-386, freebsd-amd64, freebsd-386, linux-amd64, linux-386, linux-arm, windows-amd64, windows-386'
 }
 
+import com.bmuschko.linkverifier.AggregateCoverage
+import com.bmuschko.linkverifier.Distributions
+
 task aggregateCoverage(type: AggregateCoverage) {
     mustRunAfter test
 }
