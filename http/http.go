@@ -6,8 +6,10 @@ import (
 	"time"
 )
 
-var client = &http.Client{
-	Timeout: time.Second * 5,
+var client = &http.Client{}
+
+func SetTimeout(timeout int) {
+	client.Timeout = time.Duration(int(time.Second) * timeout)
 }
 
 // Get emits a HTTP GET request for a given URL. Captures the status code, status and outcome of the call.
