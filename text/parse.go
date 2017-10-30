@@ -6,6 +6,7 @@ package text
 import (
 	"github.com/mvdan/xurls"
 	"regexp"
+	"strings"
 )
 
 // ParseLinks parses a given text and extracts all links. None of the links is further modified except for the rules listed below.
@@ -51,6 +52,9 @@ func sanitizeLink(link string) string {
 }
 
 func skipLink(link string) bool {
+	// localhost URLs
+	localhostUrl := strings.Contains(link, "localhost")
+	// placeholder in link e.g. http://${host}/path
 	re := regexp.MustCompile("\\$\\{.*}")
-	return re.MatchString(link)
+	return re.MatchString(link) || localhostUrl
 }
