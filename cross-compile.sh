@@ -2,7 +2,7 @@
 
 HASH="$(git rev-parse --short HEAD)"
 NAME="link-verifier"
-VERSION="0.3"
+VERSION="0.4"
 DATE=$(date +%d-%m-%Y" "%H:%M:%S)
 BUILD_DIR="build"
 BUILD_TMP_DIR="$BUILD_DIR/tmp/$NAME-$VERSION"
