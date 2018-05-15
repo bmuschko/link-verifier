@@ -54,7 +54,9 @@ func sanitizeLink(link string) string {
 func skipLink(link string) bool {
 	// localhost URLs
 	localhostUrl := strings.Contains(link, "localhost")
+	// mailto links
+	mailtoLink := strings.Contains(link, "mailto:")
 	// placeholder in link e.g. http://${host}/path
 	re := regexp.MustCompile("\\$\\{.*}")
-	return re.MatchString(link) || localhostUrl
+	return re.MatchString(link) || localhostUrl || mailtoLink
 }

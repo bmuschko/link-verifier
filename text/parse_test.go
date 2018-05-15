@@ -51,6 +51,14 @@ func TestParseLinkWithLocalhostUrl(t *testing.T) {
 	assert.Len(t, links, 0)
 }
 
+func TestParseLinkWithMailtoLink(t *testing.T) {
+	text := fmt.Sprintf("Send me a mail to %s.", "mailto:benjamin.muschko@gmail.com")
+
+	links := ParseLinks(text)
+
+	assert.Len(t, links, 0)
+}
+
 func TestLinkInCode(t *testing.T) {
 	text := fmt.Sprintf(`if (true) {
         return "%s";
