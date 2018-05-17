@@ -1,7 +1,0 @@
-package: .
-import:
-- package: github.com/mvdan/xurls
-  version: 1.1.0
-testImport:
-- package: github.com/stretchr/testify
-  version: 1.1.4

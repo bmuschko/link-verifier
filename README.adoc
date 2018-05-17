@@ -26,7 +26,7 @@ Just download, exact the archive and execute the binary.
 
 Building from source requires that you have link:https://golang.org/doc/install[Go] installed on your machine.
 
-``` shell
+```
 go get -u -v github.com/bmuschko/link-verifier
 ```
 
@@ -45,7 +45,7 @@ Run the program with `link-verifier` from anywhere in the file system.
 
 **Example**:
 
-``` shell
+```
 link-verifier -rootDirs data,content -includePatterns *.html,*.yml -fail false
 ```
 
@@ -57,7 +57,7 @@ Integrating the tool with a build on CI is a breeze and can used as validation s
 
 The following `.travis.yml` demonstrate the use of the prebuilt binary version on Linux 64 bit:
 
-``` shell
+``` yaml
 before_script:
   - wget https://github.com/bmuschko/link-verifier/releases/download/v0.1/link-verifier-0.1-linux64.tar.gz -O /tmp/link-verifier.tar.gz
   - tar -xvf /tmp/link-verifier.tar.gz
@@ -70,13 +70,13 @@ script:
 == Contribute!
 
 It's easy to contribute to this project. Install link:https://golang.org/doc/install[Go] and the package manager
-link:https://glide.sh/[Glide]. Then run the following commands to get the source code, resolve external dependencies
+link:https://github.com/golang/dep/[Dep]. Then run the following commands to get the source code, resolve external dependencies
 and build the project.
 
-``` shell
+```
 git clone https://github.com/bmuschko/link-verifier.git
 cd link-verifier
-glide install
+dep ensure
 go build
 ```
 
