@@ -8,6 +8,7 @@ import (
 
 var client = &http.Client{}
 
+// Set timeout for HTTP request.
 func SetTimeout(timeout int) {
 	client.Timeout = time.Duration(int(time.Second) * timeout)
 }
