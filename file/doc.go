@@ -6,9 +6,10 @@ import "strings"
 var AsciiDoc = Document{"AsciiDoc", []string{"*.adoc", "*.asciidoc", "*.asc"}}
 // Markdown represents a document using the Markdown markup language.
 var Markdown = Document{"Markdown", []string{"*.md", "*.markdown", "*.mdown"}}
-// AsciiDoc represents a plain-text document.
+// PlainText represents a plain-text document.
 var PlainText = Document{"Plain Text", []string{"*.txt"}}
 
+// Document represents a recognized and parseable document for further processing.
 type Document struct {
 	name string
 	ext  []string
