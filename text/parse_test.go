@@ -1,8 +1,9 @@
-package text
+package text_test
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/assert"
+	. "github.com/bmuschko/link-verifier/text"
+	. "github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -13,8 +14,8 @@ func TestParseLinkWithLinkPrefix(t *testing.T) {
 
 	links := ParseLinks(text)
 
-	assert.Len(t, links, 1)
-	assert.Equal(t, expectedLink, links[0])
+	Len(t, links, 1)
+	Equal(t, expectedLink, links[0])
 }
 
 func TestParseLinkWithoutLinkPrefix(t *testing.T) {
@@ -22,8 +23,8 @@ func TestParseLinkWithoutLinkPrefix(t *testing.T) {
 
 	links := ParseLinks(text)
 
-	assert.Len(t, links, 1)
-	assert.Equal(t, expectedLink, links[0])
+	Len(t, links, 1)
+	Equal(t, expectedLink, links[0])
 }
 
 func TestParseLinkInText(t *testing.T) {
@@ -31,8 +32,8 @@ func TestParseLinkInText(t *testing.T) {
 
 	links := ParseLinks(text)
 
-	assert.Len(t, links, 1)
-	assert.Equal(t, expectedLink, links[0])
+	Len(t, links, 1)
+	Equal(t, expectedLink, links[0])
 }
 
 func TestParseLinkWithPlaceholder(t *testing.T) {
@@ -40,7 +41,7 @@ func TestParseLinkWithPlaceholder(t *testing.T) {
 
 	links := ParseLinks(text)
 
-	assert.Len(t, links, 0)
+	Len(t, links, 0)
 }
 
 func TestParseLinkWithLocalhostUrl(t *testing.T) {
@@ -48,7 +49,7 @@ func TestParseLinkWithLocalhostUrl(t *testing.T) {
 
 	links := ParseLinks(text)
 
-	assert.Len(t, links, 0)
+	Len(t, links, 0)
 }
 
 func TestParseLinkWithMailtoLink(t *testing.T) {
@@ -56,7 +57,7 @@ func TestParseLinkWithMailtoLink(t *testing.T) {
 
 	links := ParseLinks(text)
 
-	assert.Len(t, links, 0)
+	Len(t, links, 0)
 }
 
 func TestLinkInCode(t *testing.T) {
@@ -68,22 +69,22 @@ func TestLinkInCode(t *testing.T) {
 
 	links := ParseLinks(text)
 
-	assert.Len(t, links, 1)
-	assert.Equal(t, expectedLink, links[0])
+	Len(t, links, 1)
+	Equal(t, expectedLink, links[0])
 }
 
 func TestSanatizeLinkDescription(t *testing.T) {
 	text := "http://www.javadoc.io/[javadoc.io]"
 	links := ParseLinks(text)
 
-	assert.Len(t, links, 1)
-	assert.Equal(t, "http://www.javadoc.io/", links[0])
+	Len(t, links, 1)
+	Equal(t, "http://www.javadoc.io/", links[0])
 }
 
 func TestSanatizeFragementInLink(t *testing.T) {
 	text := "https://docs.gradle.org/current/userguide/java_plugin.html#sec:javadoc"
 	links := ParseLinks(text)
 
-	assert.Len(t, links, 1)
-	assert.Equal(t, "https://docs.gradle.org/current/userguide/java_plugin.html", links[0])
+	Len(t, links, 1)
+	Equal(t, "https://docs.gradle.org/current/userguide/java_plugin.html", links[0])
 }

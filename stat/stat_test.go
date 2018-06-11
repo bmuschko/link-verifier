@@ -1,32 +1,33 @@
-package stat
+package stat_test
 
 import (
-	"github.com/stretchr/testify/assert"
+	. "github.com/bmuschko/link-verifier/stat"
+	. "github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestSumSuccessesForEmptySlice(t *testing.T) {
 	aggregateSummary := []Summary{}
 	sum := SumSuccesses(aggregateSummary)
-	assert.Equal(t, 0, sum)
+	Equal(t, 0, sum)
 }
 
 func TestSumSuccessesForPopulatedSlice(t *testing.T) {
 	aggregateSummary := summaries()
 	sum := SumSuccesses(aggregateSummary)
-	assert.Equal(t, 29, sum)
+	Equal(t, 29, sum)
 }
 
 func TestSumFailuresForEmptySlice(t *testing.T) {
 	aggregateSummary := []Summary{}
 	sum := SumFailures(aggregateSummary)
-	assert.Equal(t, 0, sum)
+	Equal(t, 0, sum)
 }
 
 func TestSumFailuresForPopulatedSlice(t *testing.T) {
 	aggregateSummary := summaries()
 	sum := SumFailures(aggregateSummary)
-	assert.Equal(t, 70, sum)
+	Equal(t, 70, sum)
 }
 
 func summaries() []Summary {

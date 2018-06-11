@@ -1,11 +1,12 @@
-package file
+package file_test
 
 import (
-	"github.com/stretchr/testify/assert"
+	"fmt"
+	. "github.com/bmuschko/link-verifier/file"
+	. "github.com/stretchr/testify/assert"
 	"os"
 	"path/filepath"
 	"testing"
-	"fmt"
 )
 
 func TestFindAsciiDocFilesInRootDir(t *testing.T) {
@@ -23,9 +24,9 @@ func TestFindAsciiDocFilesInRootDir(t *testing.T) {
 	createFile(docPath)
 
 	files := FindTextBasedFiles(tempDirPath, []string{})
-	assert.Equal(t, 2, len(files))
-	assert.Equal(t, path1, files[0])
-	assert.Equal(t, path2, files[1])
+	Equal(t, 2, len(files))
+	Equal(t, path1, files[0])
+	Equal(t, path2, files[1])
 
 	deleteFile(path1)
 	deleteFile(path2)
@@ -47,9 +48,9 @@ func TestFindAsciiDocFilesInSubDirs(t *testing.T) {
 	createFile(path2)
 
 	files := FindTextBasedFiles(tempDirPath, []string{})
-	assert.Equal(t, 2, len(files))
-	assert.Equal(t, path1, files[0])
-	assert.Equal(t, path2, files[1])
+	Equal(t, 2, len(files))
+	Equal(t, path1, files[0])
+	Equal(t, path2, files[1])
 
 	deleteFile(path1)
 	deleteFile(path2)
@@ -66,10 +67,10 @@ func TestFindAsciiDocFilesDifferentExtensions(t *testing.T) {
 	createFile(path3)
 
 	files := FindTextBasedFiles(tempDirPath, []string{})
-	assert.Equal(t, 3, len(files))
-	assert.Equal(t, path1, files[0])
-	assert.Equal(t, path2, files[1])
-	assert.Equal(t, path3, files[2])
+	Equal(t, 3, len(files))
+	Equal(t, path1, files[0])
+	Equal(t, path2, files[1])
+	Equal(t, path3, files[2])
 
 	deleteFile(path1)
 	deleteFile(path2)
@@ -87,10 +88,10 @@ func TestFindMarkdownFilesDifferentExtensions(t *testing.T) {
 	createFile(path3)
 
 	files := FindTextBasedFiles(tempDirPath, []string{})
-	assert.Equal(t, 3, len(files))
-	assert.Equal(t, path1, files[0])
-	assert.Equal(t, path2, files[1])
-	assert.Equal(t, path3, files[2])
+	Equal(t, 3, len(files))
+	Equal(t, path1, files[0])
+	Equal(t, path2, files[1])
+	Equal(t, path3, files[2])
 
 	deleteFile(path1)
 	deleteFile(path2)
@@ -106,9 +107,9 @@ func TestFilesForCustomIncludePatterns(t *testing.T) {
 	createFile(path2)
 
 	files := FindTextBasedFiles(tempDirPath, []string{"*.html", "*.yml"})
-	assert.Equal(t, 2, len(files))
-	assert.Equal(t, path1, files[0])
-	assert.Equal(t, path2, files[1])
+	Equal(t, 2, len(files))
+	Equal(t, path1, files[0])
+	Equal(t, path2, files[1])
 
 	deleteFile(path1)
 	deleteFile(path2)
@@ -123,7 +124,7 @@ func TestReadFile(t *testing.T) {
 	writeFile(path1, expectedContent)
 
 	content := ReadFile(path1)
-	assert.Equal(t, expectedContent, content)
+	Equal(t, expectedContent, content)
 
 	deleteFile(path1)
 }
