@@ -23,7 +23,7 @@ func TestFindAsciiDocFilesInRootDir(t *testing.T) {
 	createFile(binPath)
 	createFile(docPath)
 
-	files := FindTextBasedFiles(tempDirPath, []string{})
+	files := FindTextBasedFiles(tempDirPath, []string{"*.adoc"})
 	Equal(t, 2, len(files))
 	Equal(t, path1, files[0])
 	Equal(t, path2, files[1])
@@ -47,7 +47,7 @@ func TestFindAsciiDocFilesInSubDirs(t *testing.T) {
 	createFile(path1)
 	createFile(path2)
 
-	files := FindTextBasedFiles(tempDirPath, []string{})
+	files := FindTextBasedFiles(tempDirPath, []string{"*.adoc"})
 	Equal(t, 2, len(files))
 	Equal(t, path1, files[0])
 	Equal(t, path2, files[1])
@@ -66,28 +66,7 @@ func TestFindAsciiDocFilesDifferentExtensions(t *testing.T) {
 	createFile(path2)
 	createFile(path3)
 
-	files := FindTextBasedFiles(tempDirPath, []string{})
-	Equal(t, 3, len(files))
-	Equal(t, path1, files[0])
-	Equal(t, path2, files[1])
-	Equal(t, path3, files[2])
-
-	deleteFile(path1)
-	deleteFile(path2)
-	deleteFile(path3)
-}
-
-func TestFindMarkdownFilesDifferentExtensions(t *testing.T) {
-	tempDirPath := filepath.Join(os.TempDir(), "d")
-	createDir(tempDirPath)
-	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1.md"))
-	path2 := filepath.Join(tempDirPath, fmt.Sprintf("2.markdown"))
-	path3 := filepath.Join(tempDirPath, fmt.Sprintf("3.mdown"))
-	createFile(path1)
-	createFile(path2)
-	createFile(path3)
-
-	files := FindTextBasedFiles(tempDirPath, []string{})
+	files := FindTextBasedFiles(tempDirPath, []string{"*.adoc", "*.asciidoc", "*.asc"})
 	Equal(t, 3, len(files))
 	Equal(t, path1, files[0])
 	Equal(t, path2, files[1])
