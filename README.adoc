@@ -37,10 +37,10 @@ Run the program with `link-verifier` from anywhere in the file system.
 [options="header"]
 |=========================================================
 |Option |Description |Default Value
-|`dirs` |The comma-separated root directories used to recursively search for files. |`.`
-|`include` |The comma-separated include patterns used to search for files. The value of the include patterns are always additive to the default file patterns. |`\*.md,*.adoc`
-|`fail` |Fails the program if at least one discovered link cannot be resolved. |`true`
-|`timeout` |The timeout in seconds used when calling the URL. |`5`
+|`dirs` |The comma-separated root directories used to recursively search for files. |.
+|`include` |The comma-separated include patterns used to search for files. The value of the include patterns are always additive to the default file patterns. |\*.md,*.adoc
+|`fail` |Fails the program if at least one discovered link cannot be resolved. |true
+|`timeout` |The timeout in seconds used when calling the URL. |5
 |=========================================================
 
 **Example**:
