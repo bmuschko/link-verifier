@@ -3,3 +3,4 @@ vendor
 .idea
 build
 coverage.txt
+profile.out
