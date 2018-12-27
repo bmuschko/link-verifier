@@ -21,15 +21,6 @@ func FindTextBasedFiles(sourceDir string, includePatterns []string) []string {
 		}
 
 		fn := fileInfo.Name()
-		for _, ext := range AsciiDoc.ext {
-			matches, err = appendMatches(ext, fn, path, matches)
-		}
-		for _, ext := range Markdown.ext {
-			matches, err = appendMatches(ext, fn, path, matches)
-		}
-		for _, ext := range PlainText.ext {
-			matches, err = appendMatches(ext, fn, path, matches)
-		}
 		for _, include := range includePatterns {
 			matches, err = appendMatches(include, fn, path, matches)
 		}
