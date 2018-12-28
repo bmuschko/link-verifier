@@ -16,24 +16,26 @@ func SetTimeout(timeout int) {
 // Get emits a HTTP GET request for a given URL. Captures the status code, status and outcome of the call.
 // Returns with information about the response.
 func Get(link string) HttpResponse {
-	result := HttpResponse{Url: link, Success: true}
+	result := HttpResponse{Url: link}
 	url, err := url.ParseRequestURI(link)
 
 	if err != nil {
-		panic(err)
+		result.Error = err
+		return result
 	}
 
 	resp, err := client.Get(url.String())
 
 	if err != nil {
-		panic(err)
+		result.Error = err
+		return result
 	}
 
 	result.StatusCode = resp.StatusCode
 	result.Status = resp.Status
 
-	if resp.StatusCode != 200 {
-		result.Success = false
+	if resp.StatusCode == 200 {
+		result.Success = true
 	}
 
 	resp.Body.Close()
@@ -46,4 +48,5 @@ type HttpResponse struct {
 	Success    bool
 	StatusCode int
 	Status     string
+	Error      error
 }

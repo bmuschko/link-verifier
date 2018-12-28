@@ -108,6 +108,13 @@ func TestReadFile(t *testing.T) {
 	deleteFile(path1)
 }
 
+func TestPanicWhenReadingNonExistentFile(t *testing.T) {
+	path := filepath.Join("1.adoc")
+	Panics(t, func() {
+		ReadFile(path)
+	})
+}
+
 func createDir(path string) {
 	err := os.MkdirAll(path, 0755)
 

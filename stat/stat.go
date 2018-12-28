@@ -20,6 +20,16 @@ func SumFailures(aggregateSummary []Summary) int {
 	return sum(failures)
 }
 
+// SumErrors sums up all errors.
+// Returns the overall number of errors.
+func SumErrors(aggregateSummary []Summary) int {
+	errors := collect(aggregateSummary, func(summary Summary) int {
+		return summary.Errored
+	})
+
+	return sum(errors)
+}
+
 func collect(list []Summary, f convert) []int {
 	result := make([]int, len(list))
 
@@ -46,4 +56,5 @@ type convert func(Summary) int
 type Summary struct {
 	Successful int
 	Failed     int
+	Errored    int
 }

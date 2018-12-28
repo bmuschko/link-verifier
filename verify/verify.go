@@ -49,12 +49,13 @@ func Process(files []string, fail bool) {
 	if len(aggregateSummary) > 0 {
 		successCount := stat.SumSuccesses(aggregateSummary)
 		failureCount := stat.SumFailures(aggregateSummary)
-		stats := fmt.Sprintf("SUCCESSFUL: %s, FAILED: %s", strconv.Itoa(successCount), strconv.Itoa(failureCount))
+		errorCount := stat.SumErrors(aggregateSummary)
+		stats := fmt.Sprintf("SUCCESSFUL: %s, FAILED: %s, ERRORED: %s", strconv.Itoa(successCount), strconv.Itoa(failureCount), strconv.Itoa(errorCount))
 		fmt.Println()
 		fmt.Println(calculateSeparator(stats))
 		fmt.Println(stats)
 
-		if failureCount > 0 && !fail {
+		if (failureCount > 0 || errorCount > 0) && !fail {
 			os.Exit(1)
 		}
 	}
@@ -84,7 +85,10 @@ func parseLinks(content string) stat.Summary {
 func validateLink(link string, summary *stat.Summary, ch chan<- string) {
 	response := http.Get(link)
 
-	if response.Success {
+	if response.Error != nil {
+		summary.Errored++
+		ch <- fmt.Sprintf("[ERROR] %s (%s)", link, response.Error.Error())
+	} else if response.Success {
 		summary.Successful++
 		ch <- fmt.Sprintf("[OK] %s", link)
 	} else {

@@ -6,20 +6,18 @@ import (
 	"testing"
 )
 
+func TestSetTimeout(t *testing.T) {
+	SetTimeout(20)
+}
+
 func TestGetValidUrl(t *testing.T) {
 	url := "http://www.google.com/"
 	result := Get(url)
 
 	Equal(t, url, result.Url)
 	True(t, result.Success)
+	Nil(t, result.Error)
 	Equal(t, 200, result.StatusCode)
-}
-
-func TestGetNonExistentUrl(t *testing.T) {
-	url := "http://www.unknown1x.com/"
-	Panics(t, func() {
-		Get(url)
-	})
 }
 
 func TestGetUrlForBadRequest(t *testing.T) {
@@ -28,5 +26,24 @@ func TestGetUrlForBadRequest(t *testing.T) {
 
 	Equal(t, url, result.Url)
 	False(t, result.Success)
+	Nil(t, result.Error)
 	Equal(t, 400, result.StatusCode)
+}
+
+func TestGetNonExistentUrl(t *testing.T) {
+	url := "http://www.unknown1x.com/"
+	result := Get(url)
+
+	Equal(t, url, result.Url)
+	False(t, result.Success)
+	NotNil(t, result.Error)
+}
+
+func TestGetInvalidUrl(t *testing.T) {
+	url := "123://www.invalid.com/"
+	result := Get(url)
+
+	Equal(t, url, result.Url)
+	False(t, result.Success)
+	NotNil(t, result.Error)
 }
