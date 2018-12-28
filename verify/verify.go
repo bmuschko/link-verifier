@@ -55,7 +55,7 @@ func Process(files []string, fail bool) {
 		fmt.Println(calculateSeparator(stats))
 		fmt.Println(stats)
 
-		if (failureCount > 0 || errorCount > 0) && !fail {
+		if (failureCount > 0 || errorCount > 0) && fail {
 			os.Exit(1)
 		}
 	}
