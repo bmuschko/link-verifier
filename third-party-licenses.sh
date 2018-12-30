@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
-BUILD_TMP_DIR="build/tmp"
-MERGE_FILE="${BUILD_TMP_DIR}/THIRD-PARTY-LICENSES"
-
-mkdir -p ${BUILD_TMP_DIR}
+MERGE_FILE="THIRD-PARTY-LICENSES"
 rm -f ${MERGE_FILE}
 
 echo "Third party libraries" >> ${MERGE_FILE}

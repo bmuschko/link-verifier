@@ -1,5 +1,6 @@
 before:
   hooks:
+    - ./third-party-licenses.sh
 builds:
 - env:
   - CGO_ENABLED=0
@@ -17,10 +18,11 @@ builds:
     - arm64
 archive:
   name_template: '{{ .ProjectName }}-{{ .Version }}-{{ .Os }}-{{ .Arch }}{{ if .Arm}}v{{ .Arm }}{{ end }}'
-  replacements:
   format_overrides:
     - goos: windows
       format: zip
+  files:
+    - THIRD-PARTY-LICENSES
 checksum:
   name_template: '{{ .ProjectName }}_checksums.txt'
 snapshot:
