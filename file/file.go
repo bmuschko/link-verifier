@@ -16,7 +16,7 @@ func FindTextBasedFiles(sourceDir string, includePatterns []string) []string {
 	matches := []string{}
 
 	err := filepath.Walk(sourceDir, func(path string, fileInfo os.FileInfo, err error) error {
-		if !!fileInfo.IsDir() {
+		if !fileInfo.IsDir() {
 			return nil
 		}
 

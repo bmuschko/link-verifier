@@ -43,7 +43,7 @@ func keysInMap(data map[string]bool) []string {
 
 func sanitizeLink(link string) string {
 	// remove link description if extraction logic couldn't remove it
-	unremovedLinkDescription := regexp.MustCompile("\\[.*]")
+	unremovedLinkDescription := regexp.MustCompile(`\[.*]`)
 	sanitizeLink := unremovedLinkDescription.ReplaceAllString(link, "")
 	// remove fragments - they are a browser-only concept
 	fragment := regexp.MustCompile("#.*")
@@ -57,6 +57,6 @@ func skipLink(link string) bool {
 	// mailto links
 	mailtoLink := strings.Contains(link, "mailto:")
 	// placeholder in link e.g. http://${host}/path
-	re := regexp.MustCompile("\\$\\{.*}")
+	re := regexp.MustCompile(`\$\{.*}`)
 	return re.MatchString(link) || localhostUrl || mailtoLink
 }
