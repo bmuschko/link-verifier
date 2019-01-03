@@ -8,16 +8,21 @@ install:
   - chmod +x /tmp/dep
   - /tmp/dep ensure
 
-script:
-  - sh test.sh
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
-
-deploy:
-  - provider: script
-    skip_cleanup: true
-    script: curl -sL https://git.io/goreleaser | bash
-    on:
-      tags: true
-      condition: $TRAVIS_OS_NAME = linux
+jobs:
+  include:
+    - stage: "Tests"
+      name: "Unit Tests"
+      script:
+        - sh test.sh
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
+    - stage: "Release"
+      name: "Release Binaries"
+      deploy:
+        - provider: script
+          skip_cleanup: true
+          script:
+            - curl -sL https://git.io/goreleaser | bash
+          on:
+            tags: true
+            condition: $TRAVIS_OS_NAME = linux
