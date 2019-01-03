@@ -14,8 +14,8 @@ before_script:
 jobs:
   include:
     - stage: "Code Quality"
-        name: "Code Quality Analysis"
-        script: golangci-lint run
+      name: "Code Quality Analysis"
+      script: golangci-lint run
     - stage: "Tests"
       name: "Unit Tests"
       script: sh test.sh
