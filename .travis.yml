@@ -12,17 +12,16 @@ jobs:
   include:
     - stage: "Tests"
       name: "Unit Tests"
-      script:
-        - sh test.sh
+      script: sh test.sh
       after_success:
         - bash <(curl -s https://codecov.io/bash)
     - stage: "Release"
       name: "Release Binaries"
+      script: skip
       deploy:
         - provider: script
           skip_cleanup: true
-          script:
-            - curl -sL https://git.io/goreleaser | bash
+          script: curl -sL https://git.io/goreleaser | bash
           on:
             tags: true
             condition: $TRAVIS_OS_NAME = linux
