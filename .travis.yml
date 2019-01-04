@@ -12,14 +12,17 @@ before_script:
 
 jobs:
   include:
-    - stage: "Code Quality"
-      name: "Code Quality Analysis"
-      script: golangci-lint run
+    - stage: "Compile"
+      name: "Compile Packages and Dependencies"
+      script: go build
     - stage: "Tests"
       name: "Unit Tests"
       script: sh test.sh
       after_success:
         - bash <(curl -s https://codecov.io/bash)
+    - stage: "Code Quality"
+      name: "Code Quality Analysis"
+      script: golangci-lint run
     - stage: "Release"
       name: "Release Binaries"
       script: skip
