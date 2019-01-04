@@ -5,9 +5,6 @@ go:
 
 install: true
 
-env:
-  - DEP_RELEASE_TAG=v0.5.0
-
 before_script:
   - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
   - dep ensure
