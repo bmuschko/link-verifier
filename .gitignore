@@ -1,6 +1,7 @@
 .DS_Store
 vendor
 .idea
+.vscode
 dist
 coverage.txt
 profile.out
