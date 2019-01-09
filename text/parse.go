@@ -18,7 +18,7 @@ import (
 // Returns a slice of links.
 func ParseLinks(content string) []string {
 	uniqueLinks := make(map[string]bool)
-	links := xurls.Strict.FindAllString(content, -1)
+	links := xurls.Strict().FindAllString(content, -1)
 
 	for _, link := range links {
 		sanatizedLink := sanitizeLink(link)
