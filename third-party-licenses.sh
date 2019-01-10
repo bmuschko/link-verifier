@@ -6,7 +6,7 @@ rm -f ${MERGE_FILE}
 echo "Third party libraries" >> ${MERGE_FILE}
 echo "=====================" >> ${MERGE_FILE}
 
-licenseFiles=(`find vendor -name 'LICENSE'`)
+licenseFiles=(`find vendor -name 'LICENSE' -o -name 'LICENSE.txt'`)
 
 for i in "${licenseFiles[@]}"
 do
