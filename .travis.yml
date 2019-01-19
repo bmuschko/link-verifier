@@ -23,7 +23,7 @@ jobs:
         - bash <(curl -s https://codecov.io/bash)
     - stage: "Code Quality"
       name: "Code Quality Analysis"
-      script: golangci-lint run
+      script: golangci-lint run -v
     - stage: "Release"
       name: "Release Binaries"
       script: skip
