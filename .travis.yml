@@ -9,6 +9,7 @@ env:
 install: true
 
 before_script:
+  - go mod download
   - curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | bash -s -- -b $GOPATH/bin v1.12.5
 
 jobs:
@@ -23,9 +24,7 @@ jobs:
         - bash <(curl -s https://codecov.io/bash)
     - stage: "Code Quality"
       name: "Code Quality Analysis"
-      script:
-        - go mod download
-        - golangci-lint run -v
+      script: golangci-lint run
     - stage: "Release"
       name: "Release Binaries"
       script: skip
