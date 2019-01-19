@@ -69,14 +69,12 @@ script:
 
 == Contribute!
 
-It's easy to contribute to this project. Install link:https://golang.org/doc/install[Go] and the package manager
-link:https://github.com/golang/dep/[Dep]. Then run the following commands to get the source code, resolve external dependencies
+It's easy to contribute to this project. Install link:https://golang.org/doc/install[Go] >= 1.11. Then run the following commands to get the source code, resolve external dependencies
 and build the project.
 
 ```
 git clone https://github.com/bmuschko/link-verifier.git
 cd link-verifier
-dep ensure
 go build
 ```
 

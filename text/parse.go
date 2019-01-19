@@ -4,7 +4,7 @@
 package text
 
 import (
-	"github.com/mvdan/xurls"
+	"mvdan.cc/xurls/v2"
 	"regexp"
 	"strings"
 )
