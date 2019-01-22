@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Test') {
             environment {
-                CODECOV_TOKEN = credentials('CODECOV_TOKEN')
+                CODECOV_TOKEN = credentials('codecov_token')
             }
             steps {
                 sh 'go test ./... -coverprofile=coverage.txt'
