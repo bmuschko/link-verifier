@@ -27,5 +27,16 @@ pipeline {
                 sh 'golangci-lint run'
             }
         }
+        stage('Release') {
+            when {
+                buildingTag()
+            }
+            environment {
+                GITHUB_TOKEN = credentials('github_token')
+            }
+            steps {
+                sh 'curl -sL https://git.io/goreleaser | bash'
+            }
+        }
     }
 }
