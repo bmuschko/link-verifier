@@ -13,8 +13,10 @@ pipeline {
             }
         }
         stage('Test') {
-            sh 'go test ./... -coverprofile=coverage.txt'
-            sh "curl -s https://codecov.io/bash | bash -s - -t ${credentials('CODECOV_TOKEN')}"
+            steps {
+                sh 'go test ./... -coverprofile=coverage.txt'
+                sh "curl -s https://codecov.io/bash | bash -s - -t ${credentials('CODECOV_TOKEN')}"
+            }
         }
     }
 }
