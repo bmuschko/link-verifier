@@ -99,7 +99,7 @@ func validateLink(link string, summary *stat.Summary, ch chan<- string) {
 		ch <- fmt.Sprintf("[OK] %s", link)
 	} else {
 		summary.Failed++
-		ch <- fmt.Sprintf("[FAILED] %s (%s)", link, response.Status)
+		ch <- fmt.Sprintf("[FAILED] %s (HTTP %d)", link, response.StatusCode)
 	}
 }
 
