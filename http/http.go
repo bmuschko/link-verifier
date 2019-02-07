@@ -13,9 +13,23 @@ func SetTimeout(timeout int) {
 	client.Timeout = time.Duration(int(time.Second) * timeout)
 }
 
+// Get emits a HTTP HEAD request for a given URL. Captures the status code, status and outcome of the call.
+// Returns with information about the response.
+func Head(link string) HttpResponse {
+	return sendRequest(link, func(url *url.URL) (resp *http.Response, err error) {
+		return client.Head(url.String())
+	})
+}
+
 // Get emits a HTTP GET request for a given URL. Captures the status code, status and outcome of the call.
 // Returns with information about the response.
 func Get(link string) HttpResponse {
+	return sendRequest(link, func(url *url.URL) (resp *http.Response, err error) {
+		return client.Get(url.String())
+	})
+}
+
+func sendRequest(link string, req func(*url.URL) (resp *http.Response, err error)) HttpResponse {
 	result := HttpResponse{Url: link}
 	url, err := url.ParseRequestURI(link)
 
@@ -24,7 +38,7 @@ func Get(link string) HttpResponse {
 		return result
 	}
 
-	resp, err := client.Get(url.String())
+	resp, err := req(url)
 
 	if err != nil {
 		result.Error = err

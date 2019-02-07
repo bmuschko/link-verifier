@@ -83,7 +83,13 @@ func parseLinks(content string) stat.Summary {
 }
 
 func validateLink(link string, summary *stat.Summary, ch chan<- string) {
-	response := http.Get(link)
+	// Try HEAD request first
+	response := http.Head(link)
+
+	// Fall back to GET request
+	if !response.Success {
+		response = http.Get(link)
+	}
 
 	if response.Error != nil {
 		summary.Errored++
