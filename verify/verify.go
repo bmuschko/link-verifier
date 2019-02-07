@@ -35,14 +35,14 @@ func Resolve(rootDirs []string, includePatterns []string) []string {
 // Process processes text-based files by verifying each parsed links by emitting a HTTP call.
 // Prints out a summary of successful and failed links.
 // By default fails the program if at least one link could not be resolved.
-func Process(files []string, fail bool) {
+func Process(files []string, ignoreStatusCodes []int, fail bool) {
 	aggregateSummary := []stat.Summary{}
 
 	for _, textBasedFile := range files {
 		fmt.Println()
 		fmt.Println("-> Verifying file:", textBasedFile)
 		content := file.ReadFile(textBasedFile)
-		summary := parseLinks(content)
+		summary := parseLinks(content, ignoreStatusCodes)
 		aggregateSummary = append(aggregateSummary, summary)
 	}
 
@@ -50,7 +50,8 @@ func Process(files []string, fail bool) {
 		successCount := stat.SumSuccesses(aggregateSummary)
 		failureCount := stat.SumFailures(aggregateSummary)
 		errorCount := stat.SumErrors(aggregateSummary)
-		stats := fmt.Sprintf("SUCCESSFUL: %s, FAILED: %s, ERRORED: %s", strconv.Itoa(successCount), strconv.Itoa(failureCount), strconv.Itoa(errorCount))
+		ignoredCount := stat.SumIgnored(aggregateSummary)
+		stats := fmt.Sprintf("SUCCESSFUL: %s, FAILED: %s, ERRORED: %s, IGNORED: %s", strconv.Itoa(successCount), strconv.Itoa(failureCount), strconv.Itoa(errorCount), strconv.Itoa(ignoredCount))
 		fmt.Println()
 		fmt.Println(calculateSeparator(stats))
 		fmt.Println(stats)
@@ -61,7 +62,7 @@ func Process(files []string, fail bool) {
 	}
 }
 
-func parseLinks(content string) stat.Summary {
+func parseLinks(content string, ignoreStatusCodes []int) stat.Summary {
 	links := text.ParseLinks(content)
 	summary := stat.Summary{Successful: 0, Failed: 0}
 
@@ -72,7 +73,7 @@ func parseLinks(content string) stat.Summary {
 	ch := make(chan string)
 
 	for _, link := range links {
-		go validateLink(link, &summary, ch)
+		go validateLink(link, ignoreStatusCodes, &summary, ch)
 	}
 
 	for range links {
@@ -82,7 +83,7 @@ func parseLinks(content string) stat.Summary {
 	return summary
 }
 
-func validateLink(link string, summary *stat.Summary, ch chan<- string) {
+func validateLink(link string, ignoreStatusCodes []int, summary *stat.Summary, ch chan<- string) {
 	// Try HEAD request first
 	response := http.Head(link)
 
@@ -91,7 +92,10 @@ func validateLink(link string, summary *stat.Summary, ch chan<- string) {
 		response = http.Get(link)
 	}
 
-	if response.Error != nil {
+	if equalsIgnoredHttpStatusCode(ignoreStatusCodes, response.StatusCode) {
+		summary.Ignored++
+		ch <- fmt.Sprintf("[IGNORED] %s (HTTP %d)", link, response.StatusCode)
+	} else if response.Error != nil {
 		summary.Errored++
 		ch <- fmt.Sprintf("[ERROR] %s (%s)", link, response.Error.Error())
 	} else if response.Success {
@@ -111,4 +115,13 @@ func calculateSeparator(stats string) string {
 	}
 
 	return separator
+}
+
+func equalsIgnoredHttpStatusCode(s []int, e int) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
 }

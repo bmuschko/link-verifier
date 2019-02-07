@@ -42,11 +42,23 @@ func TestSumErrorsForPopulatedSlice(t *testing.T) {
 	Equal(t, 2, sum)
 }
 
+func TestSumIgnoredForEmptySlice(t *testing.T) {
+	aggregateSummary := []Summary{}
+	sum := SumIgnored(aggregateSummary)
+	Equal(t, 0, sum)
+}
+
+func TestSumIgnoredForPopulatedSlice(t *testing.T) {
+	aggregateSummary := summaries()
+	sum := SumIgnored(aggregateSummary)
+	Equal(t, 5, sum)
+}
+
 func summaries() []Summary {
 	summaries := []Summary{}
 	summaries = append(summaries, Summary{Successful: 20, Failed: 3})
 	summaries = append(summaries, Summary{Successful: 7, Failed: 67})
-	summaries = append(summaries, Summary{Successful: 2, Failed: 0})
+	summaries = append(summaries, Summary{Successful: 2, Failed: 0, Ignored: 5})
 	summaries = append(summaries, Summary{Successful: 12, Failed: 0, Errored: 2})
 	return summaries
 }

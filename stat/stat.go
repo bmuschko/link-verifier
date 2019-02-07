@@ -30,6 +30,16 @@ func SumErrors(aggregateSummary []Summary) int {
 	return sum(errors)
 }
 
+// SumErrors sums up all ignored HTTP status codes.
+// Returns the overall number of errors.
+func SumIgnored(aggregateSummary []Summary) int {
+	ignored := collect(aggregateSummary, func(summary Summary) int {
+		return summary.Ignored
+	})
+
+	return sum(ignored)
+}
+
 func collect(list []Summary, f convert) []int {
 	result := make([]int, len(list))
 
@@ -57,4 +67,5 @@ type Summary struct {
 	Successful int
 	Failed     int
 	Errored    int
+	Ignored    int
 }

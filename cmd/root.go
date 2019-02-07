@@ -20,6 +20,7 @@ var rootCmd = &cobra.Command{
 func init() {
 	rootCmd.PersistentFlags().StringSliceVar(&parsedOptions.RootDirs, "dirs", []string{"."}, "comma-separated root directories used to recursively search for files")
 	rootCmd.PersistentFlags().StringSliceVar(&parsedOptions.IncludePatterns, "include", []string{"*.md", "*.adoc"}, "comma-separated root directories used to recursively search for files")
+	rootCmd.PersistentFlags().IntSliceVar(&parsedOptions.IgnoreStatusCodes, "ignore-status-codes", []int{}, "comma-separated HTTP response codes that should be ignored for validation")
 	rootCmd.PersistentFlags().BoolVar(&parsedOptions.Fail, "fail", true, "fails the program if at least one discovered link cannot be resolved")
 	rootCmd.PersistentFlags().IntVar(&parsedOptions.Timeout, "timeout", 5, "timeout in seconds used when calling the URL")
 }
@@ -34,8 +35,9 @@ func Execute() {
 
 // Options represent command line options exposed by this program.
 type Options struct {
-	RootDirs        []string
-	IncludePatterns []string
-	Fail            bool
-	Timeout         int
+	RootDirs          []string
+	IncludePatterns   []string
+	IgnoreStatusCodes []int
+	Fail              bool
+	Timeout           int
 }
