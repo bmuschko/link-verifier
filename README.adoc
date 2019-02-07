@@ -38,7 +38,7 @@ Run the program with `link-verifier` from anywhere in the file system.
 |=========================================================
 |Option |Description |Default Value
 |`dirs` |The comma-separated root directories used to recursively search for files. |.
-|`include` |The comma-separated include patterns used to search for files. |\*.md,*.adoc
+|`includes` |The comma-separated include patterns used to search for files. |\*.md,*.adoc
 |`ignore-status-codes` |The comma-separated HTTP response status codes that will be ignored for validation. For example, some sites block crawlers and return with a specific response code.
 |`fail` |Fails the program if at least one discovered link cannot be resolved. |true
 |`timeout` |The timeout in seconds used when calling the URL. |5
