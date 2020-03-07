@@ -27,6 +27,7 @@ func TestHeadValidUrl(t *testing.T) {
 }
 
 func TestHeadUrlForBadRequest(t *testing.T) {
+	t.Skip("Needs to emulate an HTTP server to reproducible results")
 	result := Head(incompleteUrl)
 
 	Equal(t, incompleteUrl, result.Url)
@@ -61,6 +62,7 @@ func TestGetValidUrl(t *testing.T) {
 }
 
 func TestGetUrlForBadRequest(t *testing.T) {
+	t.Skip("Needs to emulate an HTTP server to reproducible results")
 	result := Get(incompleteUrl)
 
 	Equal(t, incompleteUrl, result.Url)
