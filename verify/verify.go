@@ -35,14 +35,14 @@ func Resolve(rootDirs []string, includePatterns []string) []string {
 // Process processes text-based files by verifying each parsed links by emitting a HTTP call.
 // Prints out a summary of successful and failed links.
 // By default fails the program if at least one link could not be resolved.
-func Process(files []string, ignoreStatusCodes []int, fail bool) {
+func Process(files []string, timeout int, ignoreStatusCodes []int, fail bool) {
 	aggregateSummary := []stat.Summary{}
 
 	for _, textBasedFile := range files {
 		fmt.Println()
 		fmt.Println("-> Verifying file:", textBasedFile)
 		content := file.ReadFile(textBasedFile)
-		summary := parseLinks(content, ignoreStatusCodes)
+		summary := parseLinks(content, timeout, ignoreStatusCodes)
 		aggregateSummary = append(aggregateSummary, summary)
 	}
 
@@ -62,7 +62,7 @@ func Process(files []string, ignoreStatusCodes []int, fail bool) {
 	}
 }
 
-func parseLinks(content string, ignoreStatusCodes []int) stat.Summary {
+func parseLinks(content string, timeout int, ignoreStatusCodes []int) stat.Summary {
 	links := text.ParseLinks(content)
 	summary := stat.Summary{Successful: 0, Failed: 0}
 
@@ -73,7 +73,7 @@ func parseLinks(content string, ignoreStatusCodes []int) stat.Summary {
 	ch := make(chan string)
 
 	for _, link := range links {
-		go validateLink(link, ignoreStatusCodes, &summary, ch)
+		go validateLink(link, timeout, ignoreStatusCodes, &summary, ch)
 	}
 
 	for range links {
@@ -83,7 +83,10 @@ func parseLinks(content string, ignoreStatusCodes []int) stat.Summary {
 	return summary
 }
 
-func validateLink(link string, ignoreStatusCodes []int, summary *stat.Summary, ch chan<- string) {
+func validateLink(link string, timeout int, ignoreStatusCodes []int, summary *stat.Summary, ch chan<- string) {
+	http := http.NewHTTP()
+	http.SetTimeout(timeout)
+
 	// Try HEAD request first
 	response := http.Head(link)
 

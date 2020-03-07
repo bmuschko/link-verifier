@@ -6,26 +6,33 @@ import (
 	"time"
 )
 
-var client = &http.Client{}
+type HTTP struct {
+	client *http.Client
+}
 
 // SetTimeout sets timeout for HTTP requests in seconds.
-func SetTimeout(timeout int) {
-	client.Timeout = time.Duration(int(time.Second) * timeout)
+func (h *HTTP) SetTimeout(timeout int) {
+	h.client.Timeout = time.Duration(int(time.Second) * timeout)
+}
+
+// GetTimeout gets timeout for HTTP requests as duration.
+func (h *HTTP) GetTimeout() time.Duration {
+	return h.client.Timeout
 }
 
 // Get emits a HTTP HEAD request for a given URL. Captures the status code, status and outcome of the call.
 // Returns with information about the response.
-func Head(link string) HttpResponse {
+func (h *HTTP) Head(link string) HttpResponse {
 	return sendRequest(link, func(url *url.URL) (resp *http.Response, err error) {
-		return client.Head(url.String())
+		return h.client.Head(url.String())
 	})
 }
 
 // Get emits a HTTP GET request for a given URL. Captures the status code, status and outcome of the call.
 // Returns with information about the response.
-func Get(link string) HttpResponse {
+func (h *HTTP) Get(link string) HttpResponse {
 	return sendRequest(link, func(url *url.URL) (resp *http.Response, err error) {
-		return client.Get(url.String())
+		return h.client.Get(url.String())
 	})
 }
 
@@ -63,4 +70,8 @@ type HttpResponse struct {
 	StatusCode int
 	Status     string
 	Error      error
+}
+
+func NewHTTP() *HTTP {
+	return &HTTP{client: &http.Client{}}
 }
