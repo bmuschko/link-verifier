@@ -65,7 +65,7 @@ Run the program with `link-verifier` from anywhere in the file system.
 **Example**:
 
 ```
-link-verifier --dirs data,content --include *.html,*.yml --fail false
+link-verifier --dirs data,content --include *.html,*.yml --fail=false
 ```
 
 == Usage on CI
