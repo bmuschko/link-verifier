@@ -4,17 +4,20 @@
 package text
 
 import (
-	"mvdan.cc/xurls/v2"
 	"regexp"
 	"strings"
+
+	"mvdan.cc/xurls/v2"
 )
 
 // ParseLinks parses a given text and extracts all links. None of the links is further modified except for the rules listed below.
 // Sanitizes founds like based on the following logic:
 //   - Removes link description e.g. [...] if extraction logic couldn't remove it.
 //   - Remove fragments in URLs e.g. #sec:news - they are a browser-only concept.
+//
 // Does not included links based on the following logic:
 //   - URLs that contains String interpolation with ${...}.
+//
 // Returns a slice of links.
 func ParseLinks(content string) []string {
 	uniqueLinks := make(map[string]bool)

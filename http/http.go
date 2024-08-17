@@ -39,14 +39,12 @@ func (h *HTTP) Get(link string) HttpResponse {
 func sendRequest(link string, req func(*url.URL) (resp *http.Response, err error)) HttpResponse {
 	result := HttpResponse{Url: link}
 	url, err := url.ParseRequestURI(link)
-
 	if err != nil {
 		result.Error = err
 		return result
 	}
 
 	resp, err := req(url)
-
 	if err != nil {
 		result.Error = err
 		return result

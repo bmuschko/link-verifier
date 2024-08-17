@@ -1,19 +1,19 @@
 package file_test
 
 import (
-	"fmt"
-	. "github.com/bmuschko/link-verifier/file"
-	. "github.com/stretchr/testify/assert"
 	"os"
 	"path/filepath"
 	"testing"
+
+	. "github.com/bmuschko/link-verifier/file"
+	. "github.com/stretchr/testify/assert"
 )
 
 func TestFindAsciiDocFilesInRootDir(t *testing.T) {
 	tempDirPath := filepath.Join(os.TempDir(), "a")
 	createDir(tempDirPath)
-	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1.adoc"))
-	path2 := filepath.Join(tempDirPath, fmt.Sprintf("abc.adoc"))
+	path1 := filepath.Join(tempDirPath, "1.adoc")
+	path2 := filepath.Join(tempDirPath, "abc.adoc")
 	jpgPath := filepath.Join(tempDirPath, "my.jpg")
 	binPath := filepath.Join(tempDirPath, "other.bin")
 	docPath := filepath.Join(tempDirPath, "some.doc")
@@ -42,8 +42,8 @@ func TestFindAsciiDocFilesInSubDirs(t *testing.T) {
 	createDir(subDirPath)
 	subSubDirPath := filepath.Join(subDirPath, "subsub")
 	createDir(subSubDirPath)
-	path1 := filepath.Join(subDirPath, fmt.Sprintf("1.adoc"))
-	path2 := filepath.Join(subSubDirPath, fmt.Sprintf("2.adoc"))
+	path1 := filepath.Join(subDirPath, "1.adoc")
+	path2 := filepath.Join(subSubDirPath, "2.adoc")
 	createFile(path1)
 	createFile(path2)
 
@@ -59,9 +59,9 @@ func TestFindAsciiDocFilesInSubDirs(t *testing.T) {
 func TestFindAsciiDocFilesDifferentExtensions(t *testing.T) {
 	tempDirPath := filepath.Join(os.TempDir(), "c")
 	createDir(tempDirPath)
-	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1.adoc"))
-	path2 := filepath.Join(tempDirPath, fmt.Sprintf("2.asciidoc"))
-	path3 := filepath.Join(tempDirPath, fmt.Sprintf("3.asc"))
+	path1 := filepath.Join(tempDirPath, "1.adoc")
+	path2 := filepath.Join(tempDirPath, "2.asciidoc")
+	path3 := filepath.Join(tempDirPath, "3.asc")
 	createFile(path1)
 	createFile(path2)
 	createFile(path3)
@@ -80,8 +80,8 @@ func TestFindAsciiDocFilesDifferentExtensions(t *testing.T) {
 func TestFilesForCustomIncludePatterns(t *testing.T) {
 	tempDirPath := filepath.Join(os.TempDir(), "e")
 	createDir(tempDirPath)
-	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1.html"))
-	path2 := filepath.Join(tempDirPath, fmt.Sprintf("2.yml"))
+	path1 := filepath.Join(tempDirPath, "1.html")
+	path2 := filepath.Join(tempDirPath, "2.yml")
 	createFile(path1)
 	createFile(path2)
 
@@ -98,7 +98,7 @@ func TestReadFile(t *testing.T) {
 	expectedContent := "some text"
 	tempDirPath := filepath.Join(os.TempDir(), "content")
 	createDir(tempDirPath)
-	path1 := filepath.Join(tempDirPath, fmt.Sprintf("1.adoc"))
+	path1 := filepath.Join(tempDirPath, "1.adoc")
 	createFile(path1)
 	writeFile(path1, expectedContent)
 
@@ -116,8 +116,7 @@ func TestPanicWhenReadingNonExistentFile(t *testing.T) {
 }
 
 func createDir(path string) {
-	err := os.MkdirAll(path, 0755)
-
+	err := os.MkdirAll(path, 0o755)
 	if err != nil {
 		panic(err)
 	}
@@ -125,7 +124,6 @@ func createDir(path string) {
 
 func createFile(path string) {
 	w, err := os.Create(path)
-
 	if err != nil {
 		panic(err)
 	}
@@ -134,7 +132,7 @@ func createFile(path string) {
 }
 
 func writeFile(path string, content string) {
-	var file, err = os.OpenFile(path, os.O_RDWR, 0644)
+	file, err := os.OpenFile(path, os.O_RDWR, 0o644)
 
 	if err != nil {
 		panic(err)
@@ -143,20 +141,18 @@ func writeFile(path string, content string) {
 	defer file.Close()
 
 	_, err = file.WriteString(content)
-
 	if err != nil {
 		panic(err)
 	}
 
 	err = file.Sync()
-
 	if err != nil {
 		panic(err)
 	}
 }
 
 func deleteFile(path string) {
-	var err = os.Remove(path)
+	err := os.Remove(path)
 
 	if err != nil {
 		panic(err)

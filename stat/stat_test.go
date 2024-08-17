@@ -1,9 +1,10 @@
 package stat_test
 
 import (
+	"testing"
+
 	. "github.com/bmuschko/link-verifier/stat"
 	. "github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestSumSuccessesForEmptySlice(t *testing.T) {

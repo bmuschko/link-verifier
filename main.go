@@ -4,9 +4,7 @@ import (
 	"github.com/bmuschko/link-verifier/cmd"
 )
 
-var (
-	version = "undefined"
-)
+var version = "undefined"
 
 func main() {
 	cmd.SetVersion(version)

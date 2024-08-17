@@ -2,13 +2,14 @@ package verify
 
 import (
 	"fmt"
+	"os"
+	"strconv"
+	"strings"
+
 	"github.com/bmuschko/link-verifier/file"
 	"github.com/bmuschko/link-verifier/http"
 	"github.com/bmuschko/link-verifier/stat"
 	"github.com/bmuschko/link-verifier/text"
-	"os"
-	"strconv"
-	"strings"
 )
 
 // Resolve resolves text-based files for a given directories.
@@ -111,7 +112,7 @@ func validateLink(link string, timeout int, ignoreStatusCodes []int, summary *st
 }
 
 func calculateSeparator(stats string) string {
-	var separator = ""
+	separator := ""
 
 	for i := 0; i < len(stats); i++ {
 		separator += "-"

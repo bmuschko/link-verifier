@@ -2,9 +2,10 @@ package text_test
 
 import (
 	"fmt"
+	"testing"
+
 	. "github.com/bmuschko/link-verifier/text"
 	. "github.com/stretchr/testify/assert"
-	"testing"
 )
 
 const expectedLink = "http://www.oracle.com/technetwork/articles/java/index-jsp-135444.html"

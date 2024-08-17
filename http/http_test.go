@@ -1,12 +1,13 @@
 package http_test
 
 import (
-	. "github.com/bmuschko/link-verifier/http"
-	. "github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 	"time"
+
+	. "github.com/bmuschko/link-verifier/http"
+	. "github.com/stretchr/testify/assert"
 )
 
 const (

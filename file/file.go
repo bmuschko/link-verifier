@@ -27,7 +27,6 @@ func FindTextBasedFiles(sourceDir string, includePatterns []string) []string {
 
 		return err
 	})
-
 	if err != nil {
 		panic(err)
 	}
@@ -48,7 +47,6 @@ func appendMatches(extension string, filename string, path string, matches []str
 // ReadFile reads the contents of a given file.
 func ReadFile(path string) string {
 	read, err := ioutil.ReadFile(path)
-
 	if err != nil {
 		panic(err)
 	}
